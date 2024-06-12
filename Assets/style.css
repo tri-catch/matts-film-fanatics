@@ -3,3 +3,10 @@ body{
     padding: 0;
     box-sizing: border-box;
 }
+
+.movie-area {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: 1rem; /* Adjust spacing between items */
+    justify-content: center;
+}
