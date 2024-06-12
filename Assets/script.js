@@ -3,6 +3,7 @@ const apiKey2 = "s7V7ouDr0KAENqnahUeSndhy5at0c5ITRnzhjkaa"
 
 
 const searchButton = document.querySelector(".btn")
+const searchBox = document.querySelector("search-box")
 
 
 function navigateToSecondPage(movieID) {
@@ -39,6 +40,11 @@ searchButton.addEventListener("click", function (event) {
 
 })
 
+searchBox.addEventListener("click", function (event) {
+    event.preventDefault()
+    displaySearchHistory()
+})
+
 function updateSearchHistory(movie) {
 
     let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
@@ -63,28 +69,18 @@ function displaySearchHistory() {
 }
 function renderResult(movie) {
     const result = document.createElement("div");
+    result.classList.add("m-2", "p-2", "border", "border-gray-200", "rounded", "shadow-md", "w-full", "sm:w-1/2", "md:w-1/3", "lg:w-1/3", "xl:w-1/3", "mt-10");
+
     const todaysMovie = `
-            <div>
-                <h3>Title: ${movie.Title}</h3>
-                <p>Year: ${movie.Year}</p>
-                <a href="./movie-details.html?movieID=${movie.imdbID}">
-                    <img src="${movie.Poster}" alt="${movie.Title} Poster"/>
-                </a>
-            </div>
-        `;
+        <div>
+            <h3 class="text-lg font-bold mb-1">Title: ${movie.Title}</h3>
+            <p class="mb-1">Year: ${movie.Year}</p>
+            <a href="./movie-details.html?movieID=${movie.imdbID}">
+                <img class="w-full h-64 object-cover" src="${movie.Poster}" alt="${movie.Title} Poster"/>
+            </a>
+        </div>
+    `;
     result.innerHTML = todaysMovie;
     const render = document.querySelector(".movie-area");
     render.append(result);
-}
-
-
-displaySearchHistory();
-
-function getWhereStream(movieId) {
-    fetch(
-
-        `https://api.watchmode.com/v1/title/${movieId}/details/?apiKey=s7V7ouDr0KAENqnahUeSndhy5at0c5ITRnzhjkaa&append_to_response=sources`
-
-    )
-
 }
